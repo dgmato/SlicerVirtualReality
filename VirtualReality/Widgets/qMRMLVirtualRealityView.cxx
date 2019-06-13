@@ -58,7 +58,7 @@
 #include "vtkSlicerCamerasModuleLogic.h"
 #include <vtkSlicerVersionConfigure.h> // For Slicer_VERSION_MAJOR, Slicer_VERSION_MINOR 
 
-// VirtualReality includes
+// VirtualReality MRML includes
 #include "vtkMRMLVirtualRealityViewNode.h"
 
 // MRMLDisplayableManager includes
@@ -121,6 +121,7 @@ qMRMLVirtualRealityViewPrivate::qMRMLVirtualRealityViewPrivate(qMRMLVirtualReali
   , CamerasLogic(NULL)
 {
   this->MRMLVirtualRealityViewNode = 0;
+  this->HomeWidget = new qMRMLVirtualRealityHomeWidget(q_ptr);
 }
 
 //---------------------------------------------------------------------------
@@ -622,7 +623,6 @@ void qMRMLVirtualRealityViewPrivate::updateTransformNodesWithTrackerPoses()
 #endif
 }
 
-
 //----------------------------------------------------------------------------
 void qMRMLVirtualRealityViewPrivate::updateTransformNodeWithPose(vtkMRMLTransformNode* node, vr::TrackedDevicePose_t& pose)
 {
@@ -642,7 +642,6 @@ void qMRMLVirtualRealityViewPrivate::updateTransformNodeWithPose(vtkMRMLTransfor
   node->SetAttribute("VirtualReality.PoseStatus", PoseStatusToString(pose.eTrackingResult).c_str());
 }
 
-
 // --------------------------------------------------------------------------
 // qMRMLVirtualRealityView methods
 
@@ -658,6 +657,13 @@ qMRMLVirtualRealityView::qMRMLVirtualRealityView(QWidget* _parent) : Superclass(
 qMRMLVirtualRealityView::~qMRMLVirtualRealityView()
 {
 }
+
+//------------------------------------------------------------------------------
+void qMRMLVirtualRealityView::registerModule(QWidget* widget, QIcon& icon) 
+{
+  Q_D(qMRMLVirtualRealityView);
+  d->HomeWidget->addModuleButton(widget, icon);
+}  
 
 //------------------------------------------------------------------------------
 void qMRMLVirtualRealityView::addDisplayableManager(const QString& displayableManagerName)
@@ -696,6 +702,13 @@ vtkMRMLVirtualRealityViewNode* qMRMLVirtualRealityView::mrmlVirtualRealityViewNo
 {
   Q_D(const qMRMLVirtualRealityView);
   return d->MRMLVirtualRealityViewNode;
+}
+
+//----------------------------------------------------------------------------
+qMRMLVirtualRealityHomeWidget* qMRMLVirtualRealityView::vrHomeWidget()const
+{
+  Q_D(const qMRMLVirtualRealityView);
+  return d->HomeWidget;
 }
 
 //------------------------------------------------------------------------------
