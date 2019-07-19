@@ -12,6 +12,8 @@ set(${KIT}_INCLUDE_DIRECTORIES
   ${vtkSlicerVirtualRealityModuleMRML_INCLUDE_DIRS}
   ${VTK_INCLUDE_DIRS}
   ${qSlicerSubjectHierarchyModuleWidgets_INCLUDE_DIRS}
+  ${qSlicerSegmentationsModuleWidgets_INCLUDE_DIRS}
+  ${qSlicerSegmentationsEditorEffects_INCLUDE_DIRS}
   )
 
 set(${KIT}_SRCS
@@ -24,6 +26,8 @@ set(${KIT}_SRCS
   qMRMLVirtualRealityHomeWidget.h
   qMRMLVirtualRealityDataModuleWidget.cxx
   qMRMLVirtualRealityDataModuleWidget.h
+  qMRMLVirtualRealitySegmentEditorWidget.cxx
+  qMRMLVirtualRealitySegmentEditorWidget.h
   )
 
 set(${KIT}_MOC_SRCS
@@ -32,11 +36,13 @@ set(${KIT}_MOC_SRCS
   qMRML${MODULE_NAME}View_p.h
   qMRMLVirtualRealityHomeWidget.h
   qMRMLVirtualRealityDataModuleWidget.h
+  qMRMLVirtualRealitySegmentEditorWidget.h 
   )
 
 set(${KIT}_UI_SRCS
   Resources/UI/qMRMLVirtualRealityHomeWidget.ui
   Resources/UI/qMRMLVirtualRealityDataModuleWidget.ui
+  Resources/UI/qMRMLVirtualRealitySegmentEditorWidget.ui
   Resources/UI/qMRML${MODULE_NAME}TransformWidget.ui
   )
 
@@ -50,6 +56,8 @@ set(${KIT}_TARGET_LIBRARIES
   vtkSlicerCamerasModuleLogic
   ${VTK_LIBRARIES}
   qSlicerSubjectHierarchyModuleWidgets
+  qSlicerSegmentationsModuleWidgets
+
   )
 
 #-----------------------------------------------------------------------------
